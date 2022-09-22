@@ -1,9 +1,9 @@
-import time
 from fastapi import FastAPI
 from pynput.keyboard import Key, Controller as KeyboardController
-# from pynput.mouse import Button, Controller as MouseController
+from pynput.mouse import Listener, Controller as MouseController
 
-mKeyboardController = KeyboardController()
+keyboardController = KeyboardController()
+mouse_controller = MouseController()
 
 app = FastAPI()
 
@@ -11,20 +11,18 @@ app = FastAPI()
 def key_pressed(item: str):
     try:
         key = "Key." + item
-        mKeyboardController.tap(eval(key))
+        keyboardController.tap(eval(key))
         return f"{key} key pressed"
     except Exception as e:
         print(e)
         return "Error is found"
 
-# @app.get("/mouse-left-key")
-# def mouse_left_key():
-#     time.sleep(2)
-#     key_controller.click(Button.left)
-#     key_controller.release(Button.left)
-#     return "left button is clicked"
+@app.get("/start-scroll/{item1}/{item2}")
+def scrolling(item1: float, item2: float):
 
-# @app.get("/up-scroll")
-# def up_scroll():
-#     pyautogui.scroll(10)
-#     return "Up scrolling"
+    mouse_controller.scroll(item1, item2)
+
+@app.get("/mouse-move/{item1}/{item2}")
+def mouse(item1: float, item2: float):
+
+    mouse_controller.move(item1, item2)
