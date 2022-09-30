@@ -26,3 +26,6 @@ def scrolling(item1: float, item2: float):
 def mouse(item1: float, item2: float):
 
     mouse_controller.move(item1, item2)
+    
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.1.1", port=8000)
