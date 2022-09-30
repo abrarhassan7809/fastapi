@@ -8,7 +8,7 @@ drawing_utils = mediapipe.solutions.drawing_utils
 screen_width, screen_height = pyautogui.size()
 index_y = 0
 
-while True:
+while cap.isOpened():
     _, frame = cap.read()
     frame = cv2.flip(frame, 1)
     frame_height, frame_width, _ = frame.shape
@@ -38,7 +38,6 @@ while True:
                     if abs(index_y - thumb_y) < 20:
                         print('click')
                         pyautogui.click()
-                        pyautogui.sleep(1)
 
     cv2.imshow("Virtual Mouse", frame)
     cv2.waitKey(1)
